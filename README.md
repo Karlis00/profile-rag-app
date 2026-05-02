@@ -1,4 +1,4 @@
-# Profile RAG App 🤖
+# Profile Webapp with a RAG Bot 🤖
 
 A containerized, Retrieval-Augmented Generation (RAG) agent designed to act as a personal professional surrogate. This app allows users to interact with an AI that has "read" my CV and project documentation to provide accurate, context-aware answers about my professional background.
 
