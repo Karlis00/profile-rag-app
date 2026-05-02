@@ -1,0 +1,27 @@
+# Environment — never commit API keys
+.env
+
+# ChromaDB local vector store — regenerated on ingest
+chroma_db/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.venv/
+venv/
+
+# Node / Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp

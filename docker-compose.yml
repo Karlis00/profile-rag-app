@@ -1,0 +1,73 @@
+# Profile RAG App — docker-compose
+# Services: frontend (Vite), backend (FastAPI), chromadb (vector store) + VPN Sidecar
+
+services:
+
+  # ── VPN Gateway (Surfshark) ──────────────────────────────────────────────
+  gluetun:
+    image: qmcgaw/gluetun
+    container_name: vpn-gateway
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    ports:
+      - "8000:8080"
+    environment:
+      - VPN_SERVICE_PROVIDER=surfshark
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${SURFSHARK_WG_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${SURFSHARK_WG_ADDRESS}
+      - SERVER_COUNTRIES=United States
+      - WIREGUARD_MTU=1320
+    networks:
+      - rag-net
+    restart: always
+
+  # ── Frontend ─────────────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    depends_on:
+      - gluetun # Needs the VPN tunnel up
+    networks:
+      - rag-net
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/index.html:/app/index.html
+
+  # ── Backend (Routed through VPN) ─────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    # CRITICAL: This bypasses HK geofencing by using the VPN's network stack
+    network_mode: "service:gluetun"
+    command: sh -c "sleep 60 && uvicorn app.main:app --host 0.0.0.0 --port 8080"
+    volumes:
+      - ./data:/app/data:ro
+      - ./backend/app:/app/app
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - CHROMA_HOST=chromadb
+      - CHROMA_PORT=8000
+    depends_on:
+      - gluetun
+      - chromadb
+
+  # ── ChromaDB ─────────────────────────────────────────────────────────────
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: profile-rag-app-chromadb-1
+    ports:
+      - "8001:8000"
+    networks:
+      - rag-net
+
+# ── Global Networks ────────────────────────────────────────────────────────
+networks:
+  rag-net:
+    driver: bridge
