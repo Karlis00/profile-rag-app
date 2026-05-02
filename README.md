@@ -1,4 +1,4 @@
-# My Profile Webapp with a RAG Bot 🤖
+# A Profile Webapp with a RAG Agent 🤖
 
 A containerized, Retrieval-Augmented Generation (RAG) agent designed to act as a personal professional surrogate. This app allows users to interact with an AI that has "read" my CV and project documentation to provide accurate, context-aware answers about my professional background.
 
@@ -19,7 +19,7 @@ The application is built with a focus on modularity and security, specifically d
 *   **Smart Ingestion:** Automatically parses and embeds markdown documentation (`cv.md`, `SKILL.md`) into a vector store on startup.
 *   **Geofence Bypass:** Integrated VPN gateway ensures stable connectivity to global AI services from any location.
 *   **Persona-Driven:** Uses a `SKILL.md` directive layer to ensure the AI maintains a consistent professional persona and follows specific communication rules.
-*   **Optimized Performance:** Specifically tuned for the 2026 Gemini 2.5 Flash-Lite model for the best balance of quota and reasoning.
+*   **Optimized Performance:** Specifically tuned for the Gemini model for the best balance of quota and reasoning.
 
 ## 🛠️ Prerequisites
 
