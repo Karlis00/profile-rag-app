@@ -52,3 +52,15 @@
     @apply bg-muted rounded-full;
   }
 }
+
+/* ── Phase 2: Portfolio utilities ─────────────────────────────────── */
+
+/* Smooth scroll behavior for anchor navigation */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Section separator — subtle divider between portfolio sections */
+section + section {
+  border-top: 1px solid hsl(var(--border) / 0.3);
+}

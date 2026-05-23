@@ -6,7 +6,7 @@ from jinja2 import Template
 
 from app.config import settings
 from app.services.vector_store import get_chroma_client, get_or_create_collection
-from app.services.llm_service import embed_query, embed_document, generate_answer
+from app.services.llm_service import embed_query, embed_documents, generate_answer
 
 logger = logging.getLogger(__name__)
 
@@ -42,6 +42,10 @@ def ingest_documents() -> int:
     client = get_chroma_client()
     collection = get_or_create_collection(client)
 
+    if collection.count() > 0:
+        logger.info("Documents already ingested into ChromaDB. Skipping ingestion.")
+        return collection.count()
+
     data_path = Path(settings.data_dir)
     doc_paths = list(data_path.rglob("*.md"))
 
@@ -54,15 +58,20 @@ def ingest_documents() -> int:
         # Simple paragraph-level chunking
         chunks = [c.strip() for c in text.split("\n\n") if len(c.strip()) > 20]
 
-        for i, chunk in enumerate(chunks):
-            doc_id = f"{doc_path.stem}_{i}"
-            embedding = embed_document(chunk)
-            collection.upsert(
-                ids=[doc_id],
-                embeddings=[embedding],
-                documents=[chunk],
-                metadatas=[{"source": doc_path.name}],
-            )
+        if not chunks:
+            continue
+
+        # Batch embed all chunks for a document
+        embeddings = embed_documents(chunks)
+        doc_ids = [f"{doc_path.stem}_{i}" for i in range(len(chunks))]
+        metadatas = [{"source": doc_path.name} for _ in chunks]
+
+        collection.upsert(
+            ids=doc_ids,
+            embeddings=embeddings,
+            documents=chunks,
+            metadatas=metadatas,
+        )
 
         logger.info("Ingested %d chunks from %s", len(chunks), doc_path.name)
 
