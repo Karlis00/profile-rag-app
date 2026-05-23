@@ -64,9 +64,9 @@ export interface Education {
 
 export const HERO = {
   name: "Karlis (Kam Hung Chan)",
-  subtitle: "Software Developer | AI & Web3 Specialist | IT Technician",
+  subtitle: "Software Developer | AI & Web3 Specialist",
   summary:
-    "Hong Kong-based developer with a unique trajectory from frontline emergency services and banking to high-level AI specialization. Building AI-driven systems and decentralized applications with resilience forged in high-stakes environments.",
+    "Adaptable Software Developer and AI Specialist focused on engineering robust web applications, Agentic AI pipelines, and Web3 solutions. Combining deep technical expertise with a diverse background in government services, finance, and healthcare, I excel at delivering resilient, scalable software in fast-paced, agile environments.",
 } as const;
 
 // ─── Timeline Eras ──────────────────────────────────────────────────────────
@@ -74,54 +74,63 @@ export const HERO = {
 export const TIMELINE_ERAS: TimelineEra[] = [
   {
     id: "era-1",
-    title: "Emergency Services & Finance",
-    period: "2018 – 2020",
+    title: "Government Services & Finance",
+    period: "2019 – 2022",
     description:
-      "Built foundational high-pressure decision-making skills as an Ambulanceman and managed regulatory narratives at the HK Association of Banks.",
+      "Developed high-pressure decision-making and stakeholder management skills through roles in the Fire Services Department, Drainage Services Department, and the financial sector.",
     roles: [
+      {
+        role: "Community Relations Officer",
+        company: "Drainage Services Department (HKDSD)",
+        period: "10/2021 – 03/2022",
+        highlights: [
+          "Managed public consultations and liaised with community stakeholders.",
+          "Resolved project complaints to ensure smooth public works implementation.",
+        ],
+      },
       {
         role: "Ambulanceman",
         company: "Fire Services Department (HKFSD)",
-        period: "2018 – 2019",
+        period: "04/2020 – 10/2021",
         highlights: [
-          "Provided emergency medical services in high-stakes, time-critical environments.",
-          "Demonstrated professional resilience, teamwork, and complex task execution under extreme pressure.",
+          "Coordinated real-time emergency resources and managed high-pressure incidents.",
+          "Executed rapid risk assessments under tight timelines.",
         ],
       },
       {
         role: "Business Executive",
         company: "The Hong Kong Association of Banks",
-        period: "2019 – 2020",
+        period: "10/2019 – 04/2020",
         highlights: [
-          "Managed professional operations and high-level correspondence within the financial sector.",
-          "Collaborated with industry stakeholders to support organizational objectives and financial standards.",
+          "Supported high-level administrative and project tasks within the financial sector.",
+          "Liaised with member banks and regulatory bodies to support industry-wide initiatives.",
         ],
       },
     ],
   },
   {
     id: "era-2",
-    title: "Software Engineering & AI Pivot",
-    period: "2021 – 2026",
+    title: "Software Engineering & Web Development",
+    period: "2019 – 2023",
     description:
-      "Completed Software Engineering (Centennial) and AI Postgraduate (Georgian). Developed EasyFun and CardioScan (ECG Classifier).",
+      "Transitioned into tech, working on blockchain applications and frontend development, alongside completing a Software Engineering diploma.",
     roles: [
       {
-        role: "Blockchain Project Executive",
-        company: "Smart Up Incubator",
-        period: "2021 – 2022",
+        role: "Frontend Development Consultant",
+        company: "Nexxus",
+        period: "09/2022 – 06/2023",
         highlights: [
-          "Managed blockchain-focused initiatives and project lifecycles within a technology incubator.",
-          "Coordinated between technical teams and stakeholders to drive project milestones.",
+          "Developed and maintained responsive user interfaces using React and React Native.",
+          "Collaborated with backend teams to integrate RESTful APIs and optimized frontend performance.",
         ],
       },
       {
-        role: "Frontend Developer",
-        company: "Nexxus",
-        period: "2022 – 2023",
+        role: "Blockchain Project Executive",
+        company: "Smart Up Incubator Limited",
+        period: "04/2019 – 10/2019",
         highlights: [
-          "Contributed to frontend architecture using modern JavaScript frameworks.",
-          "Built responsive and performant web applications.",
+          "Contributed to the design and implementation of the 'SmartUp' DApp using Agile/Scrum.",
+          "Built responsive frontend components using JavaScript and performed UI validation.",
         ],
       },
     ],
@@ -129,26 +138,26 @@ export const TIMELINE_ERAS: TimelineEra[] = [
   {
     id: "era-3",
     title: "AI & Web3 Research",
-    period: "2026 – Present",
+    period: "2024 – Present",
     description:
-      "Deep-diving into Agentic AI and RAG architectures. Technical testing for decentralized protocols (Polkadex).",
+      "Deep-diving into Agentic AI, RAG architectures, and testing decentralized exchange protocols.",
     roles: [
       {
         role: "AI Specialist / Developer",
         company: "Independent",
-        period: "2024 – Present",
+        period: "01/2024 – Present",
         highlights: [
           "Engineered RAG pipelines and Agentic AI frameworks using Gemini, ChromaDB, and FastAPI.",
           "Developed CardioScan: AI-based ECG classifier with ResNet and Mamba architectures.",
         ],
       },
       {
-        role: "Community Tester",
+        role: "Community Volunteering Tester",
         company: "Polkadex",
-        period: "April 2026 – Present",
+        period: "04/2026 – Present",
         highlights: [
-          "Executes end-to-end testing for decentralized exchange (DEX) environments.",
-          "Validates Polkadex protocols and monitors cross-chain transfer functionalities.",
+          "Managing the E2E testing lifecycle for a decentralized exchange (DEX) protocol.",
+          "Stress-testing protocols under high-frequency trading scenarios for reliability and security.",
         ],
       },
     ],
@@ -178,6 +187,7 @@ export const PROJECTS: Project[] = [
       "Personal profile web application using an Agentic AI framework and RAG layer. Modular architecture with FastAPI, ChromaDB, and Gemini API, deployed via Docker on Ubuntu.",
     featured: false,
     techStack: ["React", "TypeScript", "FastAPI", "ChromaDB", "Gemini API", "Docker"],
+    metrics: ["Status: Running Right Now", "Agentic AI Framework"],
   },
   {
     id: "easyfun",
@@ -195,18 +205,18 @@ export const SKILLS: SkillCategory[] = [
   {
     title: "Languages",
     icon: Code2,
-    skills: ["Python", "TypeScript", "JavaScript", "Solidity"],
+    skills: ["Python", "TypeScript", "JavaScript", "SQL", "C#", "Java", "Solidity"],
   },
   {
-    title: "AI & Machine Learning",
+    title: "AI & Data Science",
     icon: Brain,
     skills: [
       "RAG Pipelines",
-      "Agentic AI",
-      "Computer Vision",
-      "Deep Learning",
-      "ResNet",
-      "Mamba",
+      "LLMs & Prompt Engineering",
+      "Deep Learning (CNN, ResNet, Mamba)",
+      "TensorFlow & Scikit-learn",
+      "Pandas",
+      "Google AI Studio",
     ],
   },
   {
@@ -215,19 +225,19 @@ export const SKILLS: SkillCategory[] = [
     skills: ["Substrate Nodes", "Hyperbridge", "Polkadex DEX", "Cross-chain Transfers"],
   },
   {
-    title: "Frontend & Design",
+    title: "Frontend & Mobile",
     icon: Layout,
-    skills: ["React", "Vite", "TailwindCSS", "shadcn/ui", "AngularJS"],
+    skills: ["React", "React Native", "Flutter", "Vite", "TailwindCSS", "AngularJS"],
   },
   {
-    title: "Backend & Infrastructure",
+    title: "Backend & Cloud",
     icon: Server,
     skills: [
       "FastAPI",
       "Node.js",
+      "ExpressJS",
       "Docker",
-      "docker-compose",
-      "Linux (Ubuntu)",
+      "AWS & Azure",
       "PostgreSQL",
       "ChromaDB",
     ],
@@ -238,14 +248,19 @@ export const SKILLS: SkillCategory[] = [
 
 export const EDUCATION: Education[] = [
   {
-    degree: "Postgraduate Degree in Artificial Intelligence",
+    degree: "Postgraduate Certificate in Artificial Intelligence",
     institution: "Georgian College",
-    period: "2024 – 2026",
+    period: "01/2024 – 04/2026",
   },
   {
     degree: "Diploma in Computer Software Engineering",
     institution: "Centennial College",
-    period: "2022 – 2023",
+    period: "01/2022 – 04/2023",
+  },
+  {
+    degree: "Bachelor of Arts in Journalism and Communication",
+    institution: "Chu Hai College of Higher Education",
+    period: "01/2009 – 07/2013",
   },
 ];
 

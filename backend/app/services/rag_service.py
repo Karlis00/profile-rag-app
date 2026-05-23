@@ -90,32 +90,39 @@ def answer_question(question: str) -> dict:
     4. Generate answer via Gemini
     5. Return answer + deduplicated source list
     """
-    client = get_chroma_client()
-    collection = get_or_create_collection(client)
+    try:
+        client = get_chroma_client()
+        collection = get_or_create_collection(client)
 
-    question_embedding = embed_query(question)
+        question_embedding = embed_query(question)
 
-    results = collection.query(
-        query_embeddings=[question_embedding],
-        n_results=settings.top_k,
-        include=["documents", "metadatas"],
-    )
+        results = collection.query(
+            query_embeddings=[question_embedding],
+            n_results=settings.top_k,
+            include=["documents", "metadatas"],
+        )
 
-    chunks = results["documents"][0] if results["documents"] else []
-    raw_sources = [m["source"] for m in results["metadatas"][0]] if results["metadatas"] else []
-    # Deduplicate while preserving order
-    sources = list(dict.fromkeys(raw_sources))
+        chunks = results["documents"][0] if results["documents"] else []
+        raw_sources = [m["source"] for m in results["metadatas"][0]] if results["metadatas"] else []
+        # Deduplicate while preserving order
+        sources = list(dict.fromkeys(raw_sources))
 
-    if not chunks:
+        if not chunks:
+            return {
+                "answer": (
+                    "My knowledge base is still being set up. "
+                    "Please ensure the data directory contains your CV and project files."
+                ),
+                "sources": [],
+            }
+
+        prompt = _PROMPT_TEMPLATE.render(chunks=chunks, question=question)
+        answer = generate_answer(prompt)
+
+        return {"answer": answer, "sources": sources}
+    except Exception as e:
+        logger.error("Error during RAG pipeline: %s", e)
         return {
-            "answer": (
-                "My knowledge base is still being set up. "
-                "Please ensure the data directory contains your CV and project files."
-            ),
-            "sources": [],
+            "answer": "I'm currently experiencing high traffic or a temporary network issue. Please try again in a few moments, or feel free to reach out to Karlis directly through the contact section!",
+            "sources": []
         }
-
-    prompt = _PROMPT_TEMPLATE.render(chunks=chunks, question=question)
-    answer = generate_answer(prompt)
-
-    return {"answer": answer, "sources": sources}
